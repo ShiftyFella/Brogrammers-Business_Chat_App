@@ -27,6 +27,13 @@ extension UIView {
         }, completion: nil)
         
     }
+	
+	func setGradient(_ topColour: CGColor, _ bottomColour: CGColor) {
+			let gradientLayer = CAGradientLayer()
+			gradientLayer.frame = self.bounds
+			gradientLayer.colors = [topColour, bottomColour]
+			self.layer.insertSublayer(gradientLayer, at: 0)
+	}
     
 }
 
@@ -47,6 +54,35 @@ extension UIViewController {
         self.present(vc, animated: true, completion: nil)
         print("GoGoGo")
     }
+    
+    func alert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    func getDateFromInterval(timestamp: Double?) -> String? {
+        
+        if let timestamp = timestamp {
+            let date = Date(timeIntervalSinceReferenceDate: timestamp)
+            let dateFormatter = DateFormatter()
+            let timeSinceDateInSeconds = Date().timeIntervalSince(date)
+            let secondInDays: TimeInterval = 24*60*60
+            if timeSinceDateInSeconds > 7 * secondInDays {
+                dateFormatter.dateFormat = "MM/dd/yy"
+            } else if timeSinceDateInSeconds > secondInDays {
+                dateFormatter.dateFormat = "EEE"
+            } else {
+                dateFormatter.dateFormat = "h:mm a"
+            }
+            return dateFormatter.string(from: date)
+        } else {
+            return nil
+        }
+        
+    }
+    
 }
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
@@ -65,3 +101,41 @@ extension UIColor {
         )
     }
 }
+
+let imageCache = NSCache<NSString, UIImage>()
+
+extension UIImageView {
+    
+    func loadImageUsingCacheWithUrlString(_ urlString: String) {
+        
+        self.image = nil
+        
+        //check cache for image first
+        if let cachedImage = imageCache.object(forKey: urlString as NSString) {
+            self.image = cachedImage
+            return
+        }
+        
+        //otherwise fire off a new download
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+            
+            //download hit an error so lets return out
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            DispatchQueue.main.async(execute: {
+                
+                if let downloadedImage = UIImage(data: data!) {
+                    imageCache.setObject(downloadedImage, forKey: urlString as NSString)
+                    
+                    self.image = downloadedImage
+                }
+            })
+            
+        }).resume()
+    }
+}
+

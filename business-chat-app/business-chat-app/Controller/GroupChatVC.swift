@@ -17,10 +17,11 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var groupNameLabel: UILabel!
     
     let customMessageIn = CustomMessageIn()
     let customMessageOut = CustomMessageOut()
+    
+    let colours = Colours()
     
     let dateFormatter = DateFormatter()
     let now = NSDate()
@@ -35,18 +36,10 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         
-         groupNameLabel.text = chat?.chatName
-        
-//        Services.instance.getUserEmail(byUserId: (chat?.chatName)!) { (userEmail) in
-//
-//            self.contactNameLabel.text = userEmail
-//
-//        }
-        
-        
-        Services.instance.REF_CHATS.observe(.value) { (snapshot) in
-            Services.instance.getAllMessagesFor(desiredChat: self.chat!, handler: { (returnedChatMessages) in
+        MessageServices.instance.REF_MESSAGES.observe(.value) { (snapshot) in
+            MessageServices.instance.getAllMessagesFor(desiredChat: self.chat!, handler: { (returnedChatMessages) in
                 self.chatMessages = returnedChatMessages
                 self.chatTableView.reloadData()
                 
@@ -55,11 +48,19 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 }
             })
         }
-        
+		
+		// Check chat name and set title (in case it was changed)
+		ChatServices.instance.REF_CHATS.child((chat?.key)!).observeSingleEvent(of: .value) { (snapshot) in
+			let value = snapshot.value as? NSDictionary
+			let chatName = value!["chatName"] as? String ?? ""
+			self.title = chatName
+		}
+		
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         NotificationCenter.default.addObserver(self, selector:#selector(GroupChatVC.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(GroupChatVC.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -76,25 +77,22 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.hideKeyboardWhenTappedAround()
         configureTableView()
         chatTableView.separatorStyle = .none
-        mainView.bindToKeyboard()
-        
-        
+        // mainView.bindToKeyboard()
+		
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-
-
-        //        UIView.animate(withDuration: 0.1) {
-        //
-        //            self.heightConstraint.constant = 325
-        //            self.view.layoutIfNeeded()
-        //        }
-//    }
+    //    func textFieldDidBeginEditing(_ textField: UITextField) {
+    
+    
+    //        UIView.animate(withDuration: 0.1) {
+    //
+    //            self.heightConstraint.constant = 325
+    //            self.view.layoutIfNeeded()
+    //        }
+    //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
         
-        let outColor = UIColor(rgb: 0xe7b1c8)
-        let inColor = UIColor(rgb: 0xb7d9fb)
         let sender = chatMessages[indexPath.row].senderId
         
         
@@ -103,54 +101,55 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageOut", for: indexPath) as! CustomMessageOut
             
-            cell.configeureCell(senderName: currentEmail!, messageTime: chatMessages[indexPath.row].timeSent, messageBody: chatMessages[indexPath.row].content, messageBackground: outColor)
-            cell.userPic.image = UIImage(named: "meIcon")
+            let date = getDateFromInterval(timestamp: Double(chatMessages[indexPath.row].timeSent))
+            
+            cell.configeureCell(senderName: currentEmail!, messageTime: date!, messageBody: chatMessages[indexPath.row].content, messageBackground: colours.colourMainBlue)
+            //            cell.userPic.image = UIImage(named: "meIcon")
             return cell
             
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageIn", for: indexPath) as! CustomMessageIn
             
-            cell.configeureCell(senderName: chatMessages[indexPath.row].senderId, messageTime: chatMessages[indexPath.row].timeSent, messageBody: chatMessages[indexPath.row].content, messageBackground: inColor)
-            cell.userPic.image = UIImage(named: "notMe")
+            let date = getDateFromInterval(timestamp: Double(chatMessages[indexPath.row].timeSent))
+            
+            cell.configeureCell(senderName: chatMessages[indexPath.row].senderId, messageTime: date!, messageBody: chatMessages[indexPath.row].content, messageBackground: colours.colourMainPurple)
+            // cell.userPic.image = UIImage(named: "notMe")
             return cell
             
         }
     }
     
     
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//
-//        UIView.animate(withDuration: 0.2) {
-//
-//            self.heightConstraint.constant = 60
-//            self.view.layoutIfNeeded()
-//
-//        }
-//    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.heightConstraint.constant = 60
+            self.view.layoutIfNeeded()
+            
+        }
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatMessages.count
     }
     
-    @IBAction func backBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     @IBAction func sendButton(_ sender: Any) {
         
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        let currentDate = dateFormatter.string(from: now as Date)
-        
+        let date = Date()
+        let currentDate = date.timeIntervalSinceReferenceDate
+        let messageUID = ("\(currentDate)" + currentUserId!).replacingOccurrences(of: ".", with: "")
         if textField.text != "" {
             sendBtn.isEnabled = false
-            Services.instance.sendMessage(withContent: textField.text!, withTimeSent: currentDate, forSender: currentUserId! , withChatId: chat?.key, sendComplete: { (complete) in
+            MessageServices.instance.sendMessage(withContent: textField.text!, withTimeSent: "\(currentDate)", withMessageId: messageUID, forSender: currentUserId! , withChatId: chat?.key, sendComplete: { (complete) in
                 if complete {
                     self.textField.isEnabled = true
                     self.sendBtn.isEnabled = true
                     self.textField.text = ""
-                    print("Message saved")
+                    print("Group Message saved")
                 }
             })
             
@@ -158,9 +157,10 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
     }
     
-//    @objc func tableViewTapped() {
-//        chatTableView.endEditing(true)
-//    }
+    @objc func tableViewTapped() {
+        chatTableView.endEditing(true)
+    }
+    
     
     func configureTableView() {
         chatTableView.rowHeight = UITableViewAutomaticDimension
@@ -181,6 +181,23 @@ class GroupChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.heightConstraint.constant = 0
         
     }
+	
+	// MARK: -- Navigation --
+
+    deinit{
+        
+    }
+
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "showGroupInfo" {
+			let groupInfoVC = segue.destination as! GroupInfoVC
+			groupInfoVC.initData(forChat: chat!)
+		}
+	}
+	
+
+
     
 }
 

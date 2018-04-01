@@ -24,13 +24,16 @@ class ListOfGroupsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Services.instance.REF_CHATS.observe(.value) { (snapshot) in
-            Services.instance.getMyGroups { (returnedGroupsArray) in
+//        Services.instance.REF_CHATS.observe(.value) { (snapshot) in
+            ChatServices.instance.getMyGroups { (returnedGroupsArray) in
                 self.groupsArray = returnedGroupsArray
                 self.groupsTableView.reloadData()
             }
-            
-        }
+//        }
+    }
+    
+    deinit{
+        
     }
 }
 
@@ -55,12 +58,18 @@ extension ListOfGroupsVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let groupChatVC = storyboard?.instantiateViewController(withIdentifier: "groupChatVC") as? GroupChatVC else {return}
-        groupChatVC.initData(forChat: groupsArray[indexPath.row])
-        present(groupChatVC, animated: true, completion: nil)
-    }
+	
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "showGroupChat" {
+			let indexPath = groupsTableView.indexPathForSelectedRow
+			guard let groupChatVC = segue.destination as? GroupChatVC else {return}
+			groupChatVC.initData(forChat: groupsArray[(indexPath?.row)!])
+		}
+	}
+	
+   
     
     
 }
+

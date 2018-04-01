@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1363906520631CD500746F5A /* EditProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1363906320631CD500746F5A /* EditProfileTableVC.swift */; };
+		1363906620631CD500746F5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1363906420631CD500746F5A /* LoginViewController.swift */; };
+		137B603D20633BFD008FEC57 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137B603C20633BFD008FEC57 /* UserProfileVC.swift */; };
+		137B603F20642155008FEC57 /* GroupInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137B603E20642155008FEC57 /* GroupInfoVC.swift */; };
+		137B604320642F6C008FEC57 /* GroupNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137B604220642F6C008FEC57 /* GroupNameCell.swift */; };
+		13B5669520643270006A230F /* GroupMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B5669420643270006A230F /* GroupMemberCell.swift */; };
 		7404B0D62052DA24001DF785 /* ListOfContactsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404B0D52052DA24001DF785 /* ListOfContactsVC.swift */; };
 		7404B0E22052EA38001DF785 /* CustomContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404B0E02052EA38001DF785 /* CustomContactCell.swift */; };
 		7404B0E32052EA38001DF785 /* CustomContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7404B0E12052EA38001DF785 /* CustomContactCell.xib */; };
-		743D497F204DDB92004A57E8 /* SettingsScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D497E204DDB92004A57E8 /* SettingsScreenVC.swift */; };
+		743D497F204DDB92004A57E8 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D497E204DDB92004A57E8 /* SettingsVC.swift */; };
 		743D4984204E16DA004A57E8 /* CustomMessageIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D4982204E16DA004A57E8 /* CustomMessageIn.swift */; };
 		743D4985204E16DA004A57E8 /* CustomMessageIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743D4983204E16DA004A57E8 /* CustomMessageIn.xib */; };
 		74470986205C88E2000D719F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74470985205C88E2000D719F /* Extensions.swift */; };
+		744E619520706A490092A2C7 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744E619420706A490092A2C7 /* UserServices.swift */; };
+		744E619720706A610092A2C7 /* ChatServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744E619620706A610092A2C7 /* ChatServices.swift */; };
+		744E619920706A740092A2C7 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744E619820706A740092A2C7 /* MessageServices.swift */; };
 		746E2079204F5F0D00D8B858 /* CustomMessageOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746E2077204F5F0D00D8B858 /* CustomMessageOut.swift */; };
 		746E207A204F5F0D00D8B858 /* CustomMessageOut.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746E2078204F5F0D00D8B858 /* CustomMessageOut.xib */; };
 		747E62F1205F042F004DD81B /* PersonalChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E62F0205F042F004DD81B /* PersonalChatCell.swift */; };
@@ -31,6 +40,7 @@
 		74CB914D2049C6F60098E047 /* WelcomeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB914C2049C6F60098E047 /* WelcomeScreenVC.swift */; };
 		74CB91542049DB7D0098E047 /* ListOfGroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB91522049DB7D0098E047 /* ListOfGroupsVC.swift */; };
 		74CB91582049DBBA0098E047 /* PersonalChatTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB91562049DBBA0098E047 /* PersonalChatTableVC.swift */; };
+		74F178D02062FCFC00397873 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F178CF2062FCFC00397873 /* Colours.swift */; };
 		74F8523F20583D3A00FE86D3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F8523E20583D3A00FE86D3 /* AuthService.swift */; };
 		74F8524120583D7D00FE86D3 /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F8524020583D7D00FE86D3 /* DataServices.swift */; };
 		74F8524320583E6600FE86D3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F8524220583E6600FE86D3 /* Message.swift */; };
@@ -43,14 +53,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1363906320631CD500746F5A /* EditProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileTableVC.swift; path = "business-chat-app/Controller/EditProfileTableVC.swift"; sourceTree = SOURCE_ROOT; };
+		1363906420631CD500746F5A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = "business-chat-app/Controller/LoginViewController.swift"; sourceTree = SOURCE_ROOT; };
+		137B603C20633BFD008FEC57 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
+		137B603E20642155008FEC57 /* GroupInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GroupInfoVC.swift; path = "business-chat-app/Controller/GroupInfoVC.swift"; sourceTree = SOURCE_ROOT; };
+		137B604220642F6C008FEC57 /* GroupNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupNameCell.swift; sourceTree = "<group>"; };
+		13B5669420643270006A230F /* GroupMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberCell.swift; sourceTree = "<group>"; };
 		35CEF5F8C3CA3ACC35B27A5E /* Pods_business_chat_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_business_chat_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7404B0D52052DA24001DF785 /* ListOfContactsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfContactsVC.swift; sourceTree = "<group>"; };
 		7404B0E02052EA38001DF785 /* CustomContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContactCell.swift; sourceTree = "<group>"; };
 		7404B0E12052EA38001DF785 /* CustomContactCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomContactCell.xib; sourceTree = "<group>"; };
-		743D497E204DDB92004A57E8 /* SettingsScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenVC.swift; sourceTree = "<group>"; };
+		743D497E204DDB92004A57E8 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		743D4982204E16DA004A57E8 /* CustomMessageIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageIn.swift; sourceTree = "<group>"; };
 		743D4983204E16DA004A57E8 /* CustomMessageIn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMessageIn.xib; sourceTree = "<group>"; };
 		74470985205C88E2000D719F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		744E619420706A490092A2C7 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		744E619620706A610092A2C7 /* ChatServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServices.swift; sourceTree = "<group>"; };
+		744E619820706A740092A2C7 /* MessageServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
 		746E2077204F5F0D00D8B858 /* CustomMessageOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageOut.swift; sourceTree = "<group>"; };
 		746E2078204F5F0D00D8B858 /* CustomMessageOut.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMessageOut.xib; sourceTree = "<group>"; };
 		747E62F0205F042F004DD81B /* PersonalChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChatCell.swift; sourceTree = "<group>"; };
@@ -68,11 +87,13 @@
 		74CB914C2049C6F60098E047 /* WelcomeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenVC.swift; sourceTree = "<group>"; };
 		74CB91522049DB7D0098E047 /* ListOfGroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfGroupsVC.swift; sourceTree = "<group>"; };
 		74CB91562049DBBA0098E047 /* PersonalChatTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalChatTableVC.swift; sourceTree = "<group>"; };
+		74F178CF2062FCFC00397873 /* Colours.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colours.swift; sourceTree = "<group>"; };
 		74F8523E20583D3A00FE86D3 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		74F8524020583D7D00FE86D3 /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		74F8524220583E6600FE86D3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		74F8524420583E7200FE86D3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		74F852462058487E00FE86D3 /* SearchUserForContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserForContactCell.swift; sourceTree = "<group>"; };
+		74FB458D2063132600A70834 /* EditProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableVC.swift; sourceTree = "<group>"; };
 		77AE6FE820491C4F00918A93 /* business-chat-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "business-chat-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77AE6FEB20491C4F00918A93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77AE6FF220491C4F00918A93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		137B603B20633A93008FEC57 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				1363906420631CD500746F5A /* LoginViewController.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		743D4986204E16ED004A57E8 /* Custom Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +136,8 @@
 				74B8C3A4205AC0F000951EEB /* GroupCell.swift */,
 				747E62F0205F042F004DD81B /* PersonalChatCell.swift */,
 				74B8C3AA205ACEEE00951EEB /* SearchUserForGroupCell.swift */,
+				137B604220642F6C008FEC57 /* GroupNameCell.swift */,
+				13B5669420643270006A230F /* GroupMemberCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -115,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				74470985205C88E2000D719F /* Extensions.swift */,
+				74F178CF2062FCFC00397873 /* Colours.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -122,15 +154,19 @@
 		74CB91402049BC020098E047 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				137B603C20633BFD008FEC57 /* UserProfileVC.swift */,
 				74CB914C2049C6F60098E047 /* WelcomeScreenVC.swift */,
 				74CB913C2049BBF70098E047 /* RegisterScreenVC.swift */,
 				74B3B093204BB2F40056A026 /* MainTabViewController.swift */,
 				748407FD205492D000CF244F /* AddContactVC.swift */,
 				74CB91562049DBBA0098E047 /* PersonalChatTableVC.swift */,
 				748BEF16205DFBB00032EE3C /* GroupChatVC.swift */,
+				137B603E20642155008FEC57 /* GroupInfoVC.swift */,
 				7404B0D52052DA24001DF785 /* ListOfContactsVC.swift */,
+				74FB458D2063132600A70834 /* EditProfileTableVC.swift */,
 				74CB91522049DB7D0098E047 /* ListOfGroupsVC.swift */,
-				743D497E204DDB92004A57E8 /* SettingsScreenVC.swift */,
+				1363906320631CD500746F5A /* EditProfileTableVC.swift */,
+				743D497E204DDB92004A57E8 /* SettingsVC.swift */,
 				74B8C3A6205AC15900951EEB /* AddGroupVC.swift */,
 			);
 			path = Controller;
@@ -162,6 +198,9 @@
 			children = (
 				74F8523E20583D3A00FE86D3 /* AuthService.swift */,
 				74F8524020583D7D00FE86D3 /* DataServices.swift */,
+				744E619820706A740092A2C7 /* MessageServices.swift */,
+				744E619620706A610092A2C7 /* ChatServices.swift */,
+				744E619420706A490092A2C7 /* UserServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -173,6 +212,7 @@
 				77AE6FE920491C4F00918A93 /* Products */,
 				F94DA60115FCE8B36F27D75C /* Pods */,
 				A7A343452042E7683F3DE822 /* Frameworks */,
+				137B603B20633A93008FEC57 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,7 +287,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Brogrammers;
 				TargetAttributes = {
 					77AE6FE720491C4F00918A93 = {
@@ -317,7 +357,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-business-chat-app/Pods-business-chat-app-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -325,7 +367,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -359,19 +403,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1363906620631CD500746F5A /* LoginViewController.swift in Sources */,
 				74B8C3A5205AC0F000951EEB /* GroupCell.swift in Sources */,
+				13B5669520643270006A230F /* GroupMemberCell.swift in Sources */,
 				74CB914D2049C6F60098E047 /* WelcomeScreenVC.swift in Sources */,
 				74CB913E2049BBF70098E047 /* RegisterScreenVC.swift in Sources */,
+				1363906520631CD500746F5A /* EditProfileTableVC.swift in Sources */,
 				74470986205C88E2000D719F /* Extensions.swift in Sources */,
 				749F057520589CF00022D977 /* Chat.swift in Sources */,
 				74B8C3AB205ACEEE00951EEB /* SearchUserForGroupCell.swift in Sources */,
 				743D4984204E16DA004A57E8 /* CustomMessageIn.swift in Sources */,
-				743D497F204DDB92004A57E8 /* SettingsScreenVC.swift in Sources */,
+				743D497F204DDB92004A57E8 /* SettingsVC.swift in Sources */,
 				74CB91542049DB7D0098E047 /* ListOfGroupsVC.swift in Sources */,
 				7404B0D62052DA24001DF785 /* ListOfContactsVC.swift in Sources */,
 				748407FE205492D000CF244F /* AddContactVC.swift in Sources */,
 				74F8524520583E7200FE86D3 /* User.swift in Sources */,
+				744E619920706A740092A2C7 /* MessageServices.swift in Sources */,
 				77AE6FEC20491C4F00918A93 /* AppDelegate.swift in Sources */,
+				744E619720706A610092A2C7 /* ChatServices.swift in Sources */,
+				744E619520706A490092A2C7 /* UserServices.swift in Sources */,
 				747E62F1205F042F004DD81B /* PersonalChatCell.swift in Sources */,
 				74F8524120583D7D00FE86D3 /* DataServices.swift in Sources */,
 				74B8C3A7205AC15900951EEB /* AddGroupVC.swift in Sources */,
@@ -379,9 +429,13 @@
 				7404B0E22052EA38001DF785 /* CustomContactCell.swift in Sources */,
 				74B3B094204BB2F40056A026 /* MainTabViewController.swift in Sources */,
 				74F852472058487E00FE86D3 /* SearchUserForContactCell.swift in Sources */,
+				137B603F20642155008FEC57 /* GroupInfoVC.swift in Sources */,
 				74F8524320583E6600FE86D3 /* Message.swift in Sources */,
+				137B603D20633BFD008FEC57 /* UserProfileVC.swift in Sources */,
+				74F178D02062FCFC00397873 /* Colours.swift in Sources */,
 				74CB91582049DBBA0098E047 /* PersonalChatTableVC.swift in Sources */,
 				74F8523F20583D3A00FE86D3 /* AuthService.swift in Sources */,
+				137B604320642F6C008FEC57 /* GroupNameCell.swift in Sources */,
 				748BEF17205DFBB00032EE3C /* GroupChatVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +468,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -421,6 +476,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -471,6 +527,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -478,6 +535,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

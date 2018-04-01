@@ -8,9 +8,9 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 class ListOfContactsVC: UIViewController {
-    
     
     @IBOutlet weak var contactsTableView: UITableView!
     
@@ -24,17 +24,23 @@ class ListOfContactsVC: UIViewController {
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        ChatServices.instance.REF_CHATS.observe(.value) { (snapshot) in
+            ChatServices.instance.getMyPersonalChats { (returnedUsersArray) in
+                self.contactsArray = returnedUsersArray
+                                DispatchQueue.main.async {
+                self.contactsTableView.reloadData()
+                                }
+            
+            }
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
-        Services.instance.REF_CHATS.observe(.value) { (snapshot) in
-            Services.instance.getMyContacts { (returnedUsersArray) in
-                self.contactsArray = returnedUsersArray
-                self.contactsTableView.reloadData()
-            }
-        }
     }
 }
 
@@ -51,28 +57,70 @@ extension ListOfContactsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = contactsTableView.dequeueReusableCell(withIdentifier: "personalChatCell", for: indexPath) as? PersonalChatCell else {return UITableViewCell()}
- 
+        
         
         let contact = contactsArray[indexPath.row]
-        Services.instance.getAllMessagesFor(desiredChat: contactsArray[indexPath.row]) { (returnedMessage) in
-            Services.instance.getUserName(byUserId: contact.chatName) { (userName) in
-                Services.instance.getUserEmail(byUserId: contact.chatName) { (userEmail) in
-                    cell.configeureCell(contactName: userName, contactEmail: userEmail, lastMessage: "time of the last message will be here soon")
-                }
+        MessageServices.instance.getAllMessagesFor(desiredChat: contactsArray[indexPath.row]) { (returnedMessage) in
+            
+            let amount = returnedMessage.count - 1
+
+            var date = String()
+            
+            var dateToGo = String()
+            
+            if returnedMessage.indices.contains(amount) {
+                
+                dateToGo = returnedMessage[amount].timeSent
+                date = self.getDateFromInterval(timestamp: Double(dateToGo))!
+                
+            } else {
+                
+                date = "No messages yet"
             }
+            
+            UserServices.instance.getUserData(byUserId: contact.chatName) { (userData) in
+                
+//                var userImage = UIImage()
+                
+                var statusImage = UIImage()
+                
+                var userStatus = String()
+                
+                userStatus = userData.2
+                
+                if userStatus == "online" {
+                    statusImage = UIImage(named: "status_online")!
+                }
+                else if userStatus == "offline" {
+                    statusImage = UIImage(named: "status_offline")!
+                }
+                else if userStatus == "dnd" {
+                    statusImage = UIImage(named: "status_dnd")!
+                }
+                else if userStatus == "away" {
+                    statusImage = UIImage(named: "status_away")!
+                }
+                
+                Services.instance.getUserImage(byUserId: contact.chatName, handler: { (userImageUrl) in
+                    cell.userpicImage.sd_setImage(with: userImageUrl, completed: nil)
+                })
+                
+                
+                cell.configeureCell(contactName: userData.1, contactEmail: userData.0, lastMessage: date, statusImage: statusImage)
+            }
+            
         }
-        
-        
         return cell
+        
     }
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let personalChatVC = storyboard?.instantiateViewController(withIdentifier: "personalChatVC") as? PersonalChatVC else {return}
-        personalChatVC.initData(forChat: contactsArray[indexPath.row])
-        present(personalChatVC, animated: true, completion: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPersonalChat" {
+            let indexPath = contactsTableView.indexPathForSelectedRow
+            guard let personalChatVC = segue.destination as? PersonalChatVC else {return}
+            personalChatVC.initData(forChat: contactsArray[(indexPath?.row)!])
+        }
     }
-    
 }
 
 

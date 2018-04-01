@@ -26,20 +26,11 @@ class AddContactVC: UIViewController {
     
     @IBAction func doneBtn(_ sender: Any) {
         
-        Services.instance.getUsersIds(forUsernames: chosenUserArray, handler: { (idsArray) in
+        UserServices.instance.getUsersIds(forUsernames: chosenUserArray, handler: { (idsArray) in
             
             let userIds = idsArray
-            var newIds = [String:String]()
-            
-            for i in idsArray{
-                newIds[i] = self.currentUserId
-            }
-            
-//            userIds = userIds.filter{$0 != "Hello"}
-//            userIds.append(self.currentUserId)
-           
-            
-            Services.instance.addContact(forUsersIds: userIds, handler: { (contactCreated) in
+     
+            UserServices.instance.addContact(forUsersIds: userIds, handler: { (contactCreated) in
                 
                 if contactCreated {
                     self.presentStoryboard()
@@ -47,40 +38,26 @@ class AddContactVC: UIViewController {
                     print("Contact Adding Error")
                 }
             })
-            
-            
-            for _ in idsArray {
-            
-//                let name = self.chosenUserArray[0]
-                let name = "\(self.chosenUserArray[0]) + \(self.currentUserEmail)"
-                
-            Services.instance.createPersonalChat(forChatName: name, forMemberIds: newIds, forGroupChat: false, handler: { (chatCreated) in
+ 
+            ChatServices.instance.createChat(forChatName: "defaultPersonalChat", forMemberIds: userIds, forGroupChat: false, handler: { (chatCreated) in
                 if chatCreated {
-                    self.dataServices.addPersonalChatsToUser()
                     
-                }else {
+                    UserServices.instance.addChatToUser(isGroup: false)
+                    
+                } else {
                     print("Chat Creation Error")
                 }
             })
-        }
         })
         
     }
-    
-//        @IBAction func closeBtn(_ sender: Any) {
-//            self.dismiss(animated: true, completion: nil)
-//        }
-    
-    
-   
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         doneButton.isEnabled = false
         
-        Services.instance.REF_USERS.observe(.value) { (snapshot) in
-            Services.instance.getAllUsers{ (returnedUsersArray) in
+        UserServices.instance.REF_USERS.observe(.value) { (snapshot) in
+            UserServices.instance.getAllUsers{ (returnedUsersArray) in
                 self.usersArray = returnedUsersArray
                 self.tableView.reloadData()
             }
@@ -93,8 +70,11 @@ class AddContactVC: UIViewController {
         tableView.dataSource = self
         hideKeyboardWhenTappedAround()
     }
-    
+    deinit{
+        
+    }
 }
+
 
 extension AddContactVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -106,12 +86,6 @@ extension AddContactVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "userCell") as? SearchUserForContactCell else {return UITableViewCell() }
         
-        //        let profileImage = UIImage(named: "notMe")
-        //        if chosenUserArray.contains(usersArray[indexPath.row]) {
-        //
-        //
-        //            cell.cronfigureCell(email: usersArray[indexPath.row], isSelected: true)
-        //        }else{
         let user = usersArray[indexPath.row]
         cell.cronfigureCell(email: user.email, userName: user.userName, isSelected: false)
         
@@ -148,3 +122,4 @@ extension AddContactVC: UITableViewDelegate, UITableViewDataSource {
 extension AddContactVC: UITextFieldDelegate {
     
 }
+
